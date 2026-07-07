@@ -3,12 +3,15 @@ import pandas as pd
 import joblib
 import pickle
 import requests
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
 
 # Load model
-@st.cache_data
+@st.cache_resource
 def load_model():
-    model = joblib.load("diamond_price_model.pkl")
-    with open("label_encoders.pkl", "rb") as f:
+    model = joblib.load(BASE_DIR / "diamond_price_model.pkl")
+    with open(BASE_DIR / "label_encoders.pkl", "rb") as f:
         encoders = pickle.load(f)
     return model, encoders
 
